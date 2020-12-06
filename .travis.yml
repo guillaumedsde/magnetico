@@ -32,8 +32,10 @@ jobs:
   include:
     - stage: analyse
       name: format
+      arch: amd64
       script: make check-formatting
     - name: analyse
+      arch: amd64
       script: make vet
     - stage: test
       script: make test
@@ -43,20 +45,4 @@ jobs:
     - script: make magneticow
       name: "magneticow"
     - script: make image
-      name: "docker image"
-  exclude:
-    - arch:
-      - arm64
-      - ppc64le
-      - s390x
-      name: format
-    - arch:
-      - arm64
-      - ppc64le
-      - s390x
-      name: analyse
-    - arch:
-      - arm64
-      - ppc64le
-      - s390x
       name: "docker image"
