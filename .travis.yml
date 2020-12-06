@@ -1,11 +1,6 @@
 sudo: false
 dist: focal
-
-arch:
-  - amd64
-  - arm64
-  - ppc64le
-  - s390x
+os: linux
 
 language: go
 go:
@@ -42,12 +37,29 @@ jobs:
       script: make vet
     - stage: test
       script: make test
+      arch:
+        - amd64
+        - arm64
+        - ppc64le
+        - s390x
     - stage: build
       name: "magneticod"
+      arch:
+      - amd64
+      - arm64
+      - ppc64le
+      - s390x
       script: make magneticod
     - script: make magneticow
+      arch:
+        - amd64
+        - arm64
+        - ppc64le
+        - s390x
       name: "magneticow"
     - script: make image
+      arch:
+        - amd64
       name: "docker image"
     # - name: deploy
     #   if: branch = master
