@@ -1,13 +1,15 @@
-# https://docs.travis-ci.com/user/reference/overview/#virtualisation-environment-vs-operating-system
 sudo: false
-dist: xenial
+dist: focal
+
+arch:
+  - amd64
+  - arm64
+  - ppc64le
+  - s390x
 
 language: go
 go:
-  - "1.13"
-
-env:
-  - GO111MODULE=on
+  - "1.15"
 
 # Only clone the most recent commit.
 git:
@@ -25,12 +27,27 @@ before_script:
   - "make magneticow"
   - "make image"
 
-script:
-  # The Unit Tests
-  - "make test"
-
-  # Static Analysis (vet)
-  - "make vet"
-
-  # Check formatting
-  - "make check-formatting"
+jobs:
+  include:
+    - stage: analyse
+      # only run analysis on amd64
+      arch:
+      - amd64
+      name: format
+      script: make check-formatting
+    - name: analyse
+      # only run analysis on amd64
+      arch:
+        - amd64
+      script: make vet
+    - stage: test
+      script: make test
+    - stage: build
+      name: "magneticod"
+      script: make magneticod
+    - script: make magneticow
+      name: "magneticow"
+    - script: make image
+      name: "docker image"
+    # - name: deploy
+    #   if: branch = master
