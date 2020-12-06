@@ -7,7 +7,7 @@ arch:
   - arm64
   - ppc64le
   - s390x
-  
+
 language: go
 go:
   - "1.15"
@@ -31,41 +31,32 @@ before_script:
 jobs:
   include:
     - stage: analyse
-      # only run analysis on amd64
-      arch:
-      - amd64
       name: format
       script: make check-formatting
     - name: analyse
-      # only run analysis on amd64
-      arch:
-        - amd64
       script: make vet
     - stage: test
       script: make test
-      arch:
-        - amd64
-        - arm64
-        - ppc64le
-        - s390x
     - stage: build
       name: "magneticod"
-      arch:
-      - amd64
+      script: make magneticod
+    - script: make magneticow
+      name: "magneticow"
+    - script: make image
+      name: "docker image"
+  exclude:
+    - arch:
       - arm64
       - ppc64le
       - s390x
-      script: make magneticod
-    - script: make magneticow
-      arch:
-        - amd64
-        - arm64
-        - ppc64le
-        - s390x
-      name: "magneticow"
-    - script: make image
-      arch:
-        - amd64
+      name: format
+    - arch:
+      - arm64
+      - ppc64le
+      - s390x
+      name: analyse
+    - arch:
+      - arm64
+      - ppc64le
+      - s390x
       name: "docker image"
-    # - name: deploy
-    #   if: branch = master
