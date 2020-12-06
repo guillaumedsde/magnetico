@@ -16,18 +16,12 @@ go:
 git:
   depth: 1
 
-before_install:
-  # Dump environment variables
-  - printenv
-
 install:
   - "go get -u -v github.com/kevinburke/go-bindata/..."
 
-matrix:
-  include:
-    - script: make check-formatting
-    - script: make vet
-    - script: make test
-    - script: make magneticod
-    - script: make magneticow
-    # - script: make image
+script: 
+  - make check-formatting
+  - make vet
+  - make test
+  - make magneticod
+  - make magneticow
