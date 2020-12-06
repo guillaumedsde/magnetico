@@ -32,10 +32,8 @@ jobs:
   include:
     - stage: analyse
       name: format
-      arch: amd64
       script: make check-formatting
     - name: analyse
-      arch: amd64
       script: make vet
     - stage: test
       script: make test
