@@ -19,9 +19,13 @@ git:
 install:
   - "go get -u -v github.com/kevinburke/go-bindata/..."
 
+jobs:
+  include:
+    - script:
+      - make check-formatting
+      - make vet
+      arch: amd64
+
 script: 
-  - make check-formatting
-  - make vet
-  - make test
   - make magneticod
   - make magneticow
