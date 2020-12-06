@@ -39,10 +39,10 @@ jobs:
       script: make vet
     - stage: test
       script: make test
-    - stage: build
-      name: "magneticod"
+    - stage: "build magneticod"
       script: make magneticod
-    - script: make magneticow
-      name: "magneticow"
-    - script: make image
-      name: "docker image"
+    - stage: "build magneticow"
+      script: make magneticow
+    - stage: "build docker image"
+      script: make image
+      arch: amd64
