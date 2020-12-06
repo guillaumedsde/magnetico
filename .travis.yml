@@ -21,9 +21,14 @@ install:
 
 jobs:
   include:
-    - script:
+    - name: analyse
+      script:
       - make check-formatting
       - make vet
+      arch: amd64
+    - name: build docker images
+      script:
+      - make image
       arch: amd64
 
 script: 
