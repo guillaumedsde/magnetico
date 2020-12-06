@@ -21,16 +21,26 @@ install:
 
 jobs:
   include:
-    - name: analyse
+    - stage: analyse
+      name: check-formatting
       script:
       - make check-formatting
+      arch: amd64
+    - stage: analyse
+      name: static analyses
+      script:
       - make vet
       arch: amd64
-    - name: build docker images
+    - stage: build
+      name: build magneticow
+      script:
+      - make magneticow
+    - stage: build
+      name: build magneticod
+      script:
+      - make magneticod
+    - stage: build
+      name: build docker images
       script:
       - make image
       arch: amd64
-
-script: 
-  - make magneticod
-  - make magneticow
