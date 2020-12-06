@@ -28,19 +28,11 @@ before_script:
   - "make magneticow"
   - "make image"
 
-jobs:
+matrix:
   include:
-    - stage: analyse
-      name: format
-      script: make check-formatting
-    - name: analyse
-      script: make vet
-    - stage: test
-      script: make test
-    - stage: "build magneticod"
-      script: make magneticod
-    - stage: "build magneticow"
-      script: make magneticow
-    - stage: "build docker image"
-      script: make image
-      arch: amd64
+    - script: make check-formatting
+    - script: make vet
+    - script: make test
+    - script: make magneticod
+    - script: make magneticow
+    # - script: make image
