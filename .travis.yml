@@ -23,11 +23,6 @@ before_install:
 install:
   - "go get -u -v github.com/kevinburke/go-bindata/..."
 
-before_script:
-  - "make magneticod"
-  - "make magneticow"
-  - "make image"
-
 matrix:
   include:
     - script: make check-formatting
